@@ -49,11 +49,21 @@ export default function FullWidthTabs() {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    localStorage.setItem("currTab", newValue);
   };
 
   const handleChangeIndex = (index) => {
     setValue(index);
   };
+
+  React.useEffect(() => {
+    if (
+      localStorage.getItem("currTab") !== undefined ||
+      localStorage.getItem("currTab") !== null
+    ) {
+      setValue(parseInt(localStorage.getItem("currTab")));
+    }
+  }, []);
 
   return (
     <Box sx={{ bgcolor: "background.paper" }}>
