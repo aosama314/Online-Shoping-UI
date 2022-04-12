@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import { TextField } from "@mui/material";
 
 import { useSelector, useDispatch } from "react-redux";
+
+import { toast } from "react-toastify";
+
 import {
   signUpUser,
   userSelector,
@@ -33,9 +36,27 @@ const Register = (props) => {
   useEffect(() => {
     if (isSuccess) {
       console.log("Success");
+      toast.success("Registration Success!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       dispatch(clearState());
     }
     if (isError) {
+      toast.error("Registration Failed!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       dispatch(clearState());
     }
   }, [isSuccess, isError]);
@@ -80,7 +101,9 @@ const Register = (props) => {
             type="password"
           />
         </div>
-        <button onClick={registerUser}>Register</button>
+        <button onClick={registerUser} className="formButton">
+          Register
+        </button>
       </div>
     </div>
   );

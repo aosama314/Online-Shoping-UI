@@ -18,7 +18,6 @@ body {
 }
 
 .cardHeader {
-  /* background: #f7c52a; */
   background: #9c27b0;
   color: white;
   padding: 0.75rem 1.5rem;
@@ -58,8 +57,7 @@ input:focus {
   border-bottom: 1px solid #ccc;
 }
 
-button {
-  /* background: #f7c52a; */
+.formButton {
   background: #9c27b0;
   color: white;
   border: none;

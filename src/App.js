@@ -1,7 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Col, Container, Row } from "react-bootstrap";
-import Login from "./components/Login";
 import TabsPanel from "./common/TabsPanel";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         </Row>
         <Row></Row>
       </Container>
+      <ToastContainer />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   signInUser,
@@ -7,6 +7,8 @@ import {
 } from "../store/slices/userSlice";
 
 import { TextField } from "@mui/material";
+
+import { toast } from "react-toastify";
 
 const Login = (props) => {
   const emailRef = React.createRef();
@@ -23,6 +25,35 @@ const Login = (props) => {
 
     dispatch(signInUser(user));
   };
+
+  useEffect(() => {
+    console.log(errorMessage);
+    if (isSuccess) {
+      console.log("Success");
+      toast.success("Login Success!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      dispatch(clearState());
+    }
+    if (isError) {
+      toast.error("Login Failed!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      dispatch(clearState());
+    }
+  }, [isSuccess, isError]);
 
   return (
     <div className="card">
@@ -52,7 +83,9 @@ const Login = (props) => {
             type="password"
           />
         </div>
-        <button onClick={loginUser}>Login</button>
+        <button onClick={loginUser} className="formButton">
+          Login
+        </button>
       </div>
     </div>
   );
