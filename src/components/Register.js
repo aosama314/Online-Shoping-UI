@@ -16,27 +16,29 @@ const Register = (props) => {
   const nameRef = React.createRef();
   const emailRef = React.createRef();
   const passwordRef = React.createRef();
+  const mobileNumberRef = React.createRef();
 
-  const { isFetching, isSuccess, isError, errorMessage } =
+  const { isFetching, isSuccess, isError, errorMessage, email } =
     useSelector(userSelector);
 
   const registerUser = () => {
     const name = nameRef.current.value;
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    const user = { name, email, password };
+    const mobileNumber = mobileNumberRef.current.value;
+    const user = { name, email, password, mobileNumber };
 
     dispatch(signUpUser(user));
 
     nameRef.current.value = "";
     emailRef.current.value = "";
     passwordRef.current.value = "";
+    mobileNumberRef.current.value = "";
   };
 
   useEffect(() => {
     if (isSuccess) {
-      console.log("Success");
-      toast.success("Registration Success!", {
+      toast.success(email + " Registration Success!", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -48,7 +50,7 @@ const Register = (props) => {
       dispatch(clearState());
     }
     if (isError) {
-      toast.error("Registration Failed!", {
+      toast.error(errorMessage, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -87,6 +89,18 @@ const Register = (props) => {
             placeholder="abc@domain.com"
             inputRef={emailRef}
             type="email"
+          />
+        </div>
+        <div className="inputGroup">
+          <TextField
+            id="mobileNumber"
+            fullWidth
+            label="Mobile Number"
+            variant="outlined"
+            size="small"
+            placeholder="01xxxxxxxxxx"
+            inputRef={mobileNumberRef}
+            type="text"
           />
         </div>
         <div className="inputGroup">
