@@ -1,30 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const usersAPIUri = "http://localhost:5000/api/users";
+
 export const signUpUser = createAsyncThunk(
   "users/signUpUsers.json",
-  async ({ name, email, password }, thunkAPI) => {
+  async ({ name, email, password, mobileNumber }, thunkAPI) => {
     try {
-      console.log(name, email, password);
-      const userData = { name, email, password };
+      const userData = { fullName: name, email, password, mobileNumber };
       const signUpRequest = await axios
-        .post(
-          "https://online-shopping-2be1c-default-rtdb.firebaseio.com/users/signUpUsers.json",
-          userData
-        )
+        .post(usersAPIUri, userData)
         .then((response) => {
           let data = response.data;
-
           if (response.status === 200) {
             localStorage.setItem("token", data.name);
-
             return { ...data, username: name, email: email };
           } else {
             return thunkAPI.rejectWithValue(data);
           }
         });
     } catch (e) {
-      console.log("Error", e.response.data);
       return thunkAPI.rejectWithValue(e.response.data);
     }
   }
@@ -34,26 +29,19 @@ export const signInUser = createAsyncThunk(
   "users/signUpUsers.json",
   async ({ email, password }, thunkAPI) => {
     try {
-      console.log(email, password);
       const userData = { email, password };
       const signInUserRequest = await axios
-        .get(
-          "https://online-shopping-2be1c-default-rtdb.firebaseio.com/users/signUpUsers.json",
-          userData
-        )
+        .post(`${usersAPIUri}/login`, userData)
         .then((response) => {
           let data = response.data;
-          console.log(response);
           if (response.status === 200) {
             localStorage.setItem("token", data.name);
-
             return { ...data, email: email };
           } else {
             return thunkAPI.rejectWithValue(data);
           }
         });
     } catch (e) {
-      console.log("Error", e.response.data);
       return thunkAPI.rejectWithValue(e.response.data);
     }
   }
@@ -62,6 +50,7 @@ export const signInUser = createAsyncThunk(
 const initialState = {
   username: "",
   email: "",
+  mobileNumber: "",
   isFetching: false,
   isSuccess: false,
   isError: false,
@@ -73,7 +62,10 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     clearState: (state, action) => {
-      state = initialState;
+      state.isError = false;
+      state.isSuccess = false;
+      state.isFetching = false;
+      state.errorMessage = "";
     },
   },
   extraReducers: {
@@ -82,6 +74,7 @@ const userSlice = createSlice({
       state.isSuccess = true;
       state.email = meta.arg.email;
       state.username = meta.arg.name;
+      state.mobileNumber = meta.arg.mobileNumber;
     },
     [signUpUser.pending]: (state) => {
       state.isFetching = true;
@@ -92,17 +85,16 @@ const userSlice = createSlice({
       state.errorMessage = error.message;
     },
     [signInUser.fulfilled]: (state, { meta }) => {
-      console.log(meta);
       state.email = meta.arg.email;
       state.username = meta.arg.name;
       state.isFetching = false;
       state.isSuccess = true;
       return state;
     },
-    [signInUser.rejected]: (state, { error }) => {
+    [signInUser.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
-      state.errorMessage = error.message;
+      state.errorMessage = payload;
     },
     [signInUser.pending]: (state) => {
       state.isFetching = true;

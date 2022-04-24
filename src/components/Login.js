@@ -27,9 +27,7 @@ const Login = (props) => {
   };
 
   useEffect(() => {
-    console.log(errorMessage);
     if (isSuccess) {
-      console.log("Success");
       toast.success("Login Success!", {
         position: "top-right",
         autoClose: 5000,
