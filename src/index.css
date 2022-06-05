@@ -1,15 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
-* {
-  font-family: Montserrat;
-  box-sizing: border-box;
-  color: #333;
-}
-
-body {
-  font-size: 16px;
-}
-
 .card {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 4px;
@@ -18,7 +8,7 @@ body {
 }
 
 .cardHeader {
-  background: #9c27b0;
+  background: #A68366;
   color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 2px;
@@ -58,7 +48,7 @@ input:focus {
 }
 
 .formButton {
-  background: #9c27b0;
+  background: #A68366;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -66,4 +56,55 @@ input:focus {
   width: 100%;
   text-transform: uppercase;
   cursor: pointer;
+}
+
+.css-11yukd5-MuiTabs-indicator {
+  background-color: #A68366 !important;
+}
+
+.navContainer {
+  background-color: #F8F9FA;
+}
+
+.navContainer .nav-item a {
+  color: black;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
+  font-family: 'Quattrocento Sans', sans-serif;
+}
+
+.navContainer .nav-item a:hover {
+  color: #d33b33;
+  transition: all 0.5s ease-in-out;
+}
+
+.navContainer .nav-item .active {
+  color: #d33b33;
+}
+
+.each-fade {
+  display: flex;
+  width: 100%;
+}
+
+.each-fade > div {
+  width: 75%;
+}
+
+.each-fade > div img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.each-fade p {
+  width: 25%;
+  font-size: 1em;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  background: #A68366;
 }

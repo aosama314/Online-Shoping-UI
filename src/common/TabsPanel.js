@@ -9,6 +9,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Login from "./../components/Login";
 import Register from "../components/Register";
+import { Col, Container, Row } from "react-bootstrap";
+import BannerImg from "../assets/banner-01.jpg";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -66,32 +68,47 @@ export default function FullWidthTabs() {
   }, []);
 
   return (
-    <Box sx={{ bgcolor: "background.paper" }}>
-      <AppBar position="static" style={{ backgroundColor: "white" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="secondary"
-          textColor="inherit"
-          variant="fullWidth"
-          aria-label="full width tabs example"
-        >
-          <Tab label="Login" {...a11yProps(0)} />
-          <Tab label="Registration" {...a11yProps(1)} />
-        </Tabs>
-      </AppBar>
-      <SwipeableViews
-        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-        index={value}
-        onChangeIndex={handleChangeIndex}
+    <Container
+      fluid
+      style={{
+        backgroundImage: "url(" + BannerImg + ")",
+        backgroundSize: "cover",
+      }}
+    >
+      <Row
+        style={{ minHeight: "650px", maxHeight: "700px" }}
+        className="align-items-center"
       >
-        <TabPanel value={value} index={0} dir={theme.direction}>
-          <Login />
-        </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          <Register />
-        </TabPanel>
-      </SwipeableViews>
-    </Box>
+        <Col md={6}>
+          <Box>
+            <AppBar position="static" style={{ backgroundColor: "white" }}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                indicatorColor="secondary"
+                textColor="inherit"
+                variant="fullWidth"
+                aria-label="full width tabs example"
+              >
+                <Tab label="Login" {...a11yProps(0)} />
+                <Tab label="Registration" {...a11yProps(1)} />
+              </Tabs>
+            </AppBar>
+            <SwipeableViews
+              axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+              index={value}
+              onChangeIndex={handleChangeIndex}
+            >
+              <TabPanel value={value} index={0} dir={theme.direction}>
+                <Login />
+              </TabPanel>
+              <TabPanel value={value} index={1} dir={theme.direction}>
+                <Register />
+              </TabPanel>
+            </SwipeableViews>
+          </Box>
+        </Col>
+      </Row>
+    </Container>
   );
 }
