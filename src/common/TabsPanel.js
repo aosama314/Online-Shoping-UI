@@ -89,6 +89,7 @@ export default function FullWidthTabs() {
                 textColor="inherit"
                 variant="fullWidth"
                 aria-label="full width tabs example"
+                style={{ color: "black" }}
               >
                 <Tab label="Login" {...a11yProps(0)} />
                 <Tab label="Registration" {...a11yProps(1)} />
